@@ -45,6 +45,11 @@ const View = () => {
 
   const columns = [
     {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
+    {
       title: "Voltage V1N",
       dataIndex: "voltageV1N",
       key: "voltageV1N",
