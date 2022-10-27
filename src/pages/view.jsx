@@ -1,8 +1,11 @@
 import { Table } from "antd";
-import axios from "axios";
+//import axios from "axios";
 import React, { useState, useEffect } from "react";
 //import useRequest from "../../services/RequestContext";
 import useRequest from "../services/RequestContext";
+
+import moment from "moment";
+// import 'moment-timezone-data-webpack-plugin';
 
 const View = () => {
   const { request } = useRequest();
@@ -43,11 +46,16 @@ const View = () => {
     getAllViews();
   }, []);
 
+  // const current = new Date();
+  // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
   const columns = [
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
+        render:(_, record) => (
+            <span>{moment(record.date).format('YYYY-MM-DD')}</span>
+        )
     },
     {
       title: "Voltage V1N",
@@ -221,6 +229,9 @@ const View = () => {
     },
   ];
 
-  return <Table columns={columns} dataSource={view} />;
-};
+  return <Table columns={columns} dataSource={view} />
+  // const dateToFormat = '1976-04-19T12:59-0500';
+  // <Moment>{dateToFormat}</Moment>
+
+  };
 export default View;
