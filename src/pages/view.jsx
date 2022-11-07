@@ -5,6 +5,7 @@ import React, {useState, useEffect, useCallback} from "react";
 import useRequest from "../services/RequestContext";
 
 import moment from "moment";
+import Nav from "../compornent/navbar";
 // import 'moment-timezone-data-webpack-plugin';
 
 const View = () => {
@@ -272,7 +273,8 @@ const View = () => {
 
   return(
   <>
-
+<Nav/>
+    <br/><br/><br/>
   <Search
       placeholder="Input search text"
       allowClear
