@@ -1,32 +1,38 @@
-import React, { useState, useEffect } from "react";
-import useRequest from "../services/RequestContext";
+import React from "react";
+//import useRequest from "../services/RequestContext";
 import img from "../images/home.png"
 import {Button} from "antd";
-import { useNavigate } from 'react-router';
-
-
-
+import {Link} from 'react-router-dom';
+import './home.css';
+import Nav from "../compornent/navbar";
 
 const home = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let navigate = useNavigate();
-    function handleClick() {
-        navigate('/view')
-    }
-    // const navigate = useNavigate();
-
     return(
         <>
+            <Nav/>
         <div>
-        <h1 style={{marginLeft:500}}>Welcome to SEnergy</h1>
-            <img src={img} alt="home.png" style={{ marginLeft: 200, marginTop: 100 }} />
+        <h1 style={{marginLeft:450, marginTop:100}}>Welcome to SEnergy</h1>
+            <img src={img} alt="home.png" style={{ marginLeft: 300, marginTop: 120 }} />
         </div>
 
-        <div>
-            <h1 style={{marginLeft:1000, marginTop: -400}}>Details History</h1>
-            <Button style={{color:"blueviolet" ,marginLeft:1000, marginTop: -500}} onClick={handleClick}>Go</Button>
+        {/*<div>*/}
+        {/*    <h1 style={{marginLeft:1000, marginTop: -400}}>Details History</h1>*/}
+        {/*    <Button style={{color:"blueviolet" ,marginLeft:1000, marginTop: -500}}><Link to="/view">Go</Link></Button>*/}
+        {/*</div>*/}
+        {/*    <br/><br/><br/><br/><br/><br/><br/><br/>*/}
 
-        </div>
+        {/*    <h1 style={{marginLeft:1000}} > Go To</h1>*/}
+        {/*    <div>*/}
+        {/*        <Button className="btn1" style={{marginLeft:1000, marginTop: -500}}><Link to="/energyuse">Energy Usage</Link></Button>*/}
+        {/*    </div>*/}
+        {/*<br/>*/}
+        {/*    <div>*/}
+        {/*        <Button className="btn1" style={{marginLeft:1000, marginTop: -500}}><Link to="/reading">History</Link></Button>*/}
+        {/*    </div>*/}
+        {/*<br/>*/}
+        {/*    <div>*/}
+        {/*        <Button className="btn1" style={{marginLeft:1000, marginTop: -500}}><Link to="/analytics">Analytics</Link></Button>*/}
+        {/*    </div>*/}
         </>
     );
 }

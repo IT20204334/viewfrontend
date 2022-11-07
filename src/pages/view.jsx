@@ -1,6 +1,6 @@
-import { Table } from "antd";
+import { Table,Input } from "antd";
 //import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback} from "react";
 //import useRequest from "../../services/RequestContext";
 import useRequest from "../services/RequestContext";
 
@@ -11,6 +11,7 @@ const View = () => {
   const { request } = useRequest();
   const [view, setView] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { Search } = Input;
 
   //   const getAllViews = async () => {
   //     try {
@@ -46,9 +47,34 @@ const View = () => {
     getAllViews();
   }, []);
 
+  const onSearch = useCallback(
+      (value) => {
+        let temp = [];
+        if (view.length > 0 && view !== undefined) {
+          if (value === '' || value === undefined) {
+            getAllViews();
+          } else {
+            temp = view.filter((val) => val.serialNumber.toLowerCase().search(value.toLowerCase()) != -1);
+            setView(temp);
+          }
+        }
+      },
+      [view]
+  );
+
   // const current = new Date();
   // const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
   const columns = [
+    {
+      title: "Serial Number",
+      dataIndex: "serialNumber",
+      key: "serialNumber",
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
     {
       title: "Date",
       dataIndex: "date",
@@ -56,6 +82,20 @@ const View = () => {
         render:(_, record) => (
             <span>{moment(record.date).format('YYYY-MM-DD')}</span>
         )
+    },
+    // {
+    //   title: "Time",
+    //   dataIndex: "time",
+    //   key: "time",
+    //   render:(_, record) => (
+    //       <span>{moment(record.time).format('LT')}</span>
+    //   )
+    // },
+
+    {
+      title: "Time",
+      dataIndex: "time",
+      key: "time",
     },
     {
       title: "Voltage V1N",
@@ -158,6 +198,11 @@ const View = () => {
       key: "totalKVAr",
     },
     {
+      title: "kWh",
+      dataIndex: "kwh",
+      key: "kwh",
+    },
+    {
       title: "PF1",
       dataIndex: "pF1",
       key: "pF1",
@@ -222,16 +267,24 @@ const View = () => {
       dataIndex: "neturalCurrent",
       key: "neturalCurrent",
     },
-    {
-      title: "Time",
-      dataIndex: "time",
-      key: "time",
-    },
+
   ];
 
-  return <Table columns={columns} dataSource={view} />
-  // const dateToFormat = '1976-04-19T12:59-0500';
-  // <Moment>{dateToFormat}</Moment>
+  return(
+  <>
 
+  <Search
+      placeholder="Input search text"
+      allowClear
+      enterButton
+      style={{
+        width: 250
+      }}
+      onSearch={onSearch}
+  />
+
+    <Table loading={loading} columns={columns} dataSource={view} />
+  </>
+)
   };
 export default View;
